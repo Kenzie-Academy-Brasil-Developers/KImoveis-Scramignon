@@ -100,7 +100,6 @@ describe("/users", () => {
 
         const adminLoginResponse = await request(app).post("/login").send(mockedAdminLogin);
         const UserTobeDeleted = await request(app).get('/users').set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-
         const response = await request(app).delete(`/users/${UserTobeDeleted.body[0].id}`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
         const findUser = await request(app).get('/users').set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
         expect(response.status).toBe(204)
