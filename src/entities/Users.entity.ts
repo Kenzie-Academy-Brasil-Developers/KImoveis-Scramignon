@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm"
+import { Schedules_users_properties } from "./Schedules_users_properties"
 
 @Entity()
 export class Users {
@@ -19,6 +20,9 @@ export class Users {
 
     @Column({length: 128})
     password: string
+
+    @OneToMany((type) => Schedules_users_properties, (schedules_users_properties) => schedules_users_properties.user)
+    schedules_users_properties: Schedules_users_properties[]
 
     @CreateDateColumn({name: "createdAt"})
     createdAt: Date

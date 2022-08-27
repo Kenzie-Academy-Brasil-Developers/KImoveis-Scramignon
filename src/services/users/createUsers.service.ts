@@ -1,13 +1,13 @@
 import AppDataSource from "../../data-source"
 
 import { Users } from "../../entities/Users.entity"
-import { IUserRequest } from "../../interfaces/users"
+import { IUser, IUserRequest } from "../../interfaces/users"
 
 import { AppError } from "../../errors/appError"
 
 import { hash } from "bcrypt"
 
-const createUsersService = async ({name, email, isAdm, password}:IUserRequest):Promise<Users> => {
+const createUsersService = async ({name, email, isAdm, password}:IUserRequest):Promise<IUser> => {
     const usersRepository = AppDataSource.getRepository(Users)
 
     if(!(name && email && password)) throw new AppError(400, "Request has wrong format")
@@ -16,7 +16,7 @@ const createUsersService = async ({name, email, isAdm, password}:IUserRequest):P
     if(typeof password != "string") throw new AppError(400, "Password must be a string")
 
     const isEmailAlreadyRegistered = await usersRepository.findOne({where: {email: email}})
-    if(isEmailAlreadyRegistered) throw new AppError(409, "User is already registered")
+    if(isEmailAlreadyRegistered) throw new AppError(400, "User is already registered")
 
 
     const user = new Users()
@@ -27,7 +27,9 @@ const createUsersService = async ({name, email, isAdm, password}:IUserRequest):P
     user.password = await hash(password, 10)
 
     const createdUser:Users = await usersRepository.save(user)
-    return createdUser
+    const output:IUser = {...createdUser}
+    delete output.password
+    return output
 }
 
 export { createUsersService }

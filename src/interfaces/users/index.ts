@@ -10,6 +10,7 @@ export interface IUser {
     name: string
     email: string
     isAdm: boolean
+    password?: string
     createdAt: Date
     updatedAt: Date
 }
@@ -18,4 +19,12 @@ export interface IUser {
 export interface IUserLogin {
     email: string
     password: string
+}
+
+export interface IUserTokenDecode {
+    email: string,
+    id: string,
+    isAdm: boolean,
+    iat: number,
+    exp: number
 }
