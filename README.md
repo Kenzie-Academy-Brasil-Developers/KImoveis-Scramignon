@@ -16,6 +16,7 @@
   - [6.2 users](#62-users)
     - [routes:](#routes)
     - [User creation:](#user-creation)
+    - [User listing:](#user-listing)
  
 
 
@@ -102,6 +103,7 @@ get    |/users/:id|List one user by its id
 <br>
 
 #### User creation:
+<br>
 
 POST `/users`
 
@@ -139,3 +141,40 @@ error code | description
 400        |Email must be a string
 400        |Password must be a string
 400        |User is already registered
+500        |Internal server error
+<br>
+
+#### User listing:
+<br>
+
+GET `/users`
+
+_request:_ 
+```
+none
+```
+
+_authorization:_<br>
+`
+Bearer token
+`
+
+_response:_
+```shell
+200 ok
+```
+```javascript
+[
+	{
+		"id": "c19a14a1-3d56-4ca4-8a65-49605212aaf0",
+		"name": "Fernando",
+		"email": "scramignonnarde@gmail.com",
+		"isAdm": true,
+		"isActive": true,
+		"createdAt": "2022-08-30T18:56:27.255Z",
+		"updatedAt": "2022-08-30T18:56:27.255Z"
+	}
+]
+```
+_possible errors:_<br>
+none (it can return a empty list if database is empty)
