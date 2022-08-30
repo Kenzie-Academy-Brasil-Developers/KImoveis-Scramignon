@@ -1,127 +1,141 @@
-# S5-19 | 🏁 Entrega: KImóveis - TypeORM com Relacionamentos
+<h1 style="text-align: center" name="KImoveis">KImoveis</h1>
 
-Para inciar este projeto, é necessário instalar as dependências, que serão utilizadas nos testes. Portanto utilize o comando abaixo para instalar tais dependências:
+## 1. Contents Table
+<hr> 
 
-````
-yarn install
-````
+- [1. Contents Table](#1-contents-table)
+- [2. Project objective](#2-project-objective)
+- [3. Tecnologies](#3-tecnologies)
+- [4. ER diagram](#4-er-diagram)
+- [5. Quick start](#5-quick-start)
+  - [5.1 Installing dependencies](#51-installing-dependencies)
+  - [5.2 Enviroment variables](#52-enviroment-variables)
+  - [5.3 Migrations](#53-migrations)
+- [6 Endpoints](#6-endpoints)
+  - [6.1 Index](#61-index)
+  - [6.2 users](#62-users)
+    - [routes:](#routes)
+    - [User creation:](#user-creation)
+ 
 
 
-**Atenção:** é necessário utilizar o `yarn` pois esse projeto foi iniciado com esse gerenciador de pacotes.
+## 2. Project objective
+<hr> 
 
-Para verificar se já possui o gerenciador yarn instalado utilize o seguinte comando:
-
-````
-yarn --version
-````
-
-Caso não possua o yarn instalado, utilize o comando abaixo para instalar globalmente na sua máquina:
-
-````
-npm install --global yarn
-````
+This project was created with a learning purpose. It is a assignment made for praticing
+the creation of an api, database and their connection. The project objective is to create a
+back-end service responsible for managing a real state agency.
 <br>
 
-# Como alternar entre docker e localhost
+base url: [http://localhost:3000](http://localhost:3000)
 
-Essa entrega já está com o Docker configurado e pronto para uso
-
-Basta buildar e subir nossos containers usando o comando padrão:
-````
-docker-compose up --build
-````
-
-ou
-````
-docker compose up --build
-````
-O comando pode variar com a versão do docker compose instalada em sua máquina
-
-***ATENÇÃO:*** a porta utilizada para rodar nosso docker é a `5431`.
-Caso tenha algum problema com essa porta, basta alterá-la no docker-compose.yml.
-
-<br>
-
-## **Mas caso você necessite executar a entrega em `localhost`**
-**Configure as variáveis de ambiente no seu .env**, passando as credenciais corretas para conectar em seu banco local
-
-E altere a variável **`DB_HOST`** para **`localhost`**
-
-Com isso feito, para rodar sua aplicação, basta utilizar o comando
-````
-yarn dev
-````
-
-<br>
-
-# **Sobre os testes**
-
-Essa aplicação possui testes, que serão utilizados para validar, se todas as regras de negócio foram aplicadas de maneira correta.
-
-Os testes estão localizados em `src/__tests__`.
-
-Na subpasta `integration` estão os testes.
-
-Já na subpasta `mocks` estão os dados que serão utilizados para os testes.
-
-No arquivo `jest.config.json` estão algumas configurações necessárias para os testes rodarem.
-
-**`De modo algum altere qualquer um desses arquivos.`** Isso poderá comprometer a integridade dos testes.
-
-E também não altere o script de `test` localizado no `package.json`. Isso será utilizado para rodar os testes.
-
-<br>
+## 3. Tecnologies
+<hr> 
 
 
-# **Rodando os testes** 
+- [node](https://nodejs.org/en/)
+- [typescritp](https://www.typescriptlang.org/)
+- [express](https://www.npmjs.com/package/express)
+- [docker](https://www.docker.com/)
+- [bcript](https://www.npmjs.com/package/bcrypt)
+- [typeorm](https://typeorm.io/)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [express-async-errors](https://www.npmjs.com/package/express-async-errors)
+- [postgresql](https://www.postgresql.org/docs/)
+ 
 
-Para rodar os testes é necessário que no seu terminal, você esteja dentro do diretório do projeto.
+## 4. ER diagram
+<hr> 
 
-Estando no terminal e dentro do caminho correto, você poderá utilizar os comandos a seguir:
+![diagram](DER-Entrega5.png)
+ 
 
-### Rodar todos os testes
-````
-yarn test
-````
-#
-### Rodar todos os testes e ter um log ainda mais completo
-````
-yarn test --all
-````
-#
+## 5. Quick start
+<hr> 
 
-### Rodar os testes de uma pasta específica
-`detalhe: repare que tests está envolvido por 2 underlines. Isso se chama dunder.`
-````
-yarn test ./scr/__tests__/integration/<subpasta>
-````
-#
-### Rodar os testes de um arquivo específico
-````
-yarn test ./scr/__tests__/integration/<subpasta>/<arquivo>
-````
-#
-### Rodar um teste específico
-````
-yarn test -t <describe ou test específico envolto em aspas>
-````
-````
-\\ ex: yarn test -t "/categories"
-\\ rodaria os testes do describe "/categorias" no caminho
-\\ ./scr/__tests__/integration/categories/categoriesRoutes.test.ts
-````
+### 5.1 Installing dependencies
+
+Clone the project and install its dependencies
+
+```bash
+yarn
+```
+
+
+### 5.2 Enviroment variables
+
+Copy the .env.example into a file with the name .env and then fill the variables.
+
+```bash
+cp .env.example .env
+```
+
+
+### 5.3 Migrations
+
+Run the migrations. They will create the postgres tables into the database.
+
+```bash
+run typeorm migration:run -d src/data-source.ts
+```
+ 
+
+## 6 Endpoints
+<hr> 
+
+### 6.1 Index
+- [index](#61-index)
+- [users](#1-users)
+ 
+### 6.2 users
 
 <br>
 
+#### routes:
 
-**Caso você queira verificar todas as opções de execução de testes, visite a [Documentação oficial do Jest](https://jestjs.io/docs/cli)**
+method | route    |      description
+-------|-------   |-------------------
+post   |/users    |Creates user
+get    |/users    |List all users
+get    |/users/:id|List one user by its id
 
-Após rodar um dos comandos aparecerá um log no seu terminal, contendo as informações da execução do teste.
+<br>
 
-**Observação:** O teste pode demorar alguns segundos para ser finalizado. Quanto maior for o teste, mais tempo será consumido para a execução.
+#### User creation:
 
-#
+POST `/users`
 
+_request:_ 
+```javascript
+{
+	"name": "Fernando",
+	"email": "scramignonnarde@gmail.com",
+	"isAdm": true,
+	"password": "1234"
+}
+```
+_response:_
+```shell
+201 created
+```
+```javascript
+{
+	"name": "Fernando",
+	"email": "scramignonnarde@gmail.com",
+	"isAdm": true,
+	"isActive": true,
+	"id": "c19a14a1-3d56-4ca4-8a65-49605212aaf0",
+	"createdAt": "2022-08-30T18:56:27.255Z",
+	"updatedAt": "2022-08-30T18:56:27.255Z"
+}
+```
 
+_possible errors:_
 
-### Agora que já sabe como iniciar o seu projeto e rodar os testes, é hora de colocar a mão no código!
+error code | description
+-----------|-------------
+400        |Request has wrong format
+400        |Name must be a string
+400        |Email must be a string
+400        |Password must be a string
+400        |User is already registered
