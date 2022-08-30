@@ -34,7 +34,7 @@ base url: [http://localhost:3000](http://localhost:3000)
 
 
 - [node](https://nodejs.org/en/)
-- [typescritp](https://www.typescriptlang.org/)
+- [typescript](https://www.typescriptlang.org/)
 - [express](https://www.npmjs.com/package/express)
 - [docker](https://www.docker.com/)
 - [bcript](https://www.npmjs.com/package/bcrypt)
